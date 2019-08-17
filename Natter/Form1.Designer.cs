@@ -38,6 +38,7 @@
             this.Confidence = new System.Windows.Forms.Label();
             this.FishPerHourLabel = new System.Windows.Forms.Label();
             this.PreviewImage = new System.Windows.Forms.PictureBox();
+            this.FpsCount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -170,6 +171,18 @@
             this.PreviewImage.TabIndex = 7;
             this.PreviewImage.TabStop = false;
             // 
+            // FpsCount
+            // 
+            this.FpsCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FpsCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FpsCount.Location = new System.Drawing.Point(9, 96);
+            this.FpsCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.FpsCount.Name = "FpsCount";
+            this.FpsCount.Size = new System.Drawing.Size(148, 19);
+            this.FpsCount.TabIndex = 4;
+            this.FpsCount.Text = "0";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,6 +192,7 @@
             this.Controls.Add(this.FishPerHourLabel);
             this.Controls.Add(this.MissLabel);
             this.Controls.Add(this.CatchLabel);
+            this.Controls.Add(this.FpsCount);
             this.Controls.Add(this.Confidence);
             this.Controls.Add(this.Status);
             this.Controls.Add(this.label1);
@@ -191,6 +205,7 @@
             this.Opacity = 0.9D;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.Text = "Anime Player 0.1~alpha";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PreviewImage)).EndInit();
@@ -211,6 +226,7 @@
         private System.Windows.Forms.Label Confidence;
         private System.Windows.Forms.Label FishPerHourLabel;
         private System.Windows.Forms.PictureBox PreviewImage;
+        private System.Windows.Forms.Label FpsCount;
     }
 }
 

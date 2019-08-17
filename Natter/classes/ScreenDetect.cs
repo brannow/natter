@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace FBO.Classes
@@ -77,8 +78,12 @@ namespace FBO.Classes
 
         public static bool DetectSpash(Point location, TimeSpan remainingTime, double threshold, Main del)
         {
-            var startTime = DateTime.UtcNow;
+            DateTime startTime = DateTime.UtcNow;
+            DateTime lastSplashScan = DateTime.UtcNow;
             swimmerTotalSampelsCount = 0;
+            long startFpsTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 500;
+            del.UpdateFpsCount(0);
             swimmerTotal = 0;
             highestDelta = 0;
             while (DateTime.UtcNow - startTime < remainingTime)
@@ -86,6 +91,15 @@ namespace FBO.Classes
                 if (Stop)
                 {
                     return false;
+                }
+
+                long fpsCountTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                if (milliseconds < fpsCountTime)
+                {
+                    double timediff = Convert.ToDouble(fpsCountTime - startFpsTime) / 1000;
+                    int curFps = Convert.ToInt32(swimmerTotalSampelsCount / timediff);
+                    milliseconds = fpsCountTime + 500;
+                    del.UpdateFpsCount(curFps);
                 }
 
                 if (ScreenDetect.SearchForSpalsh(location, threshold, del))
@@ -108,7 +122,7 @@ namespace FBO.Classes
             
             double tone = CalulateImageColorTone(b);
             b.Dispose();
-            if (swimmerTotalSampelsCount > 150)
+            if (swimmerTotalSampelsCount > 100)
             {
                 double avg = swimmerTotal / swimmerTotalSampelsCount;
                 double delta = Math.Abs(tone - avg);

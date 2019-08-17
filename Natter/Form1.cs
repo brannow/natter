@@ -25,9 +25,7 @@ namespace FBO
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        const string KERNEL32 = "Kernel32.dll";
-
-        [DllImport(KERNEL32)]
+        [DllImport("Kernel32.dll")]
         public extern static void CopyMemory(IntPtr dest, IntPtr src, uint length);
 
         const int MYACTION_HOTKEY_ID_START = 5519881;
@@ -187,6 +185,8 @@ BubblerFadeInTime=2300
 #if DEBUG
             PreviewImage.Show();
             PreviewImage.Visible = true;
+            FpsCount.Show();
+            FpsCount.Visible = true;
             Confidence.Show();
             Confidence.Visible = true;
 #else
@@ -194,6 +194,8 @@ BubblerFadeInTime=2300
             {
                 PreviewImage.Show();
                 PreviewImage.Visible = true;
+            FpsCount.Show();
+            FpsCount.Visible = true;
                 Confidence.Show();
                 Confidence.Visible = true;
             } 
@@ -201,6 +203,8 @@ BubblerFadeInTime=2300
             {
                 PreviewImage.Hide();
                 PreviewImage.Visible = false;
+                FpsCount.Hide();
+                FpsCount.Visible = false;
                 Confidence.Hide();
                 Confidence.Visible = false;
             }
@@ -322,6 +326,26 @@ BubblerFadeInTime=2300
             }
         }
 
+        public void UpdateFpsCount(int fps)
+        {
+            if (!FpsCount.Visible)
+            {
+                return;
+            }
+
+            if (FpsCount.InvokeRequired)
+            {
+                FpsCount.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    FpsCount.Text = fps.ToString();
+                });
+            }
+            else
+            {
+                FpsCount.Text = fps.ToString();
+            }
+        }
+
         public void UpdateConfidence(double delta)
         {
             if (!Confidence.Visible)
@@ -428,8 +452,28 @@ BubblerFadeInTime=2300
                 SetStatusText("LURE OUT");
                 MouseControl.PressOne();
                 DateTime startTime = DateTime.Now;
-                Thread.Sleep(bubblerFadeInTime);
+                int wiggleTimeDiff = 0;
 
+                // more randomness
+                if (rnd.Next(0, 100) > 70)
+                {
+                    int wiggleTime = startTime.Millisecond;
+                    MouseControl.RandomBigWiggle();
+                    int timeout = 0;
+                    wiggleTimeDiff = DateTime.Now.Millisecond - wiggleTime;
+                    if (wiggleTimeDiff < bubblerFadeInTime)
+                    {
+                        timeout = bubblerFadeInTime - wiggleTimeDiff;
+                    }
+                    Thread.Sleep(timeout);
+                }
+                else
+                {
+                    Thread.Sleep(bubblerFadeInTime);
+                }
+                
+
+                
                 SetStatusText("LOOK FOR COLOR");
                 Point p = ScreenDetect.FindColorOnScreen(searchColor.mouseOut, searchColor.mouseOver, sen);
                 if (p.X >= 0 && p.Y >= 0)
