@@ -134,13 +134,58 @@ namespace FBO.Classes
 
         public static void RandomWiggle()
         {
-            Point rp = Cursor.Position;
-            for (uint i = 0; i < rnd.Next(-1, 5); ++i)
+            WiggleTemplate(
+                0,
+                3,
+                -8,
+                -8,
+                8,
+                8,
+                10
+            );
+        }
+
+        public static void RandomBigWiggle()
+        {
+            WiggleTemplate(
+                1,
+                3,
+                -200,
+                -200,
+                200,
+                200,
+                10
+            );
+        }
+
+        protected static void WiggleTemplate(int minWig, int maxWig, int dxmin, int dymin, int dxmax, int dymax, int delay)
+        {
+            for (uint i = 0; i < rnd.Next(minWig, maxWig); ++i)
             {
-                rp.X += rnd.Next(-8, 8);
-                rp.Y += rnd.Next(-8, 8);
+                Point rp = Cursor.Position;
+                rp.X += rnd.Next(dxmin, dxmax);
+                rp.Y += rnd.Next(dymin, dymax);
+
+                if (rp.X < 0)
+                {
+                    rp.X = 0;
+                }
+                if (rp.Y < 0)
+                {
+                    rp.Y = 0;
+                }
+
+                if (rp.X > Screen.PrimaryScreen.Bounds.Width)
+                {
+                    rp.X = Screen.PrimaryScreen.Bounds.Height;
+                }
+                if (rp.Y > Screen.PrimaryScreen.Bounds.Height)
+                {
+                    rp.Y = Screen.PrimaryScreen.Bounds.Height;
+                }
+
                 MouseControl.Move(rp);
-                Thread.Sleep(rnd.Next(5, 10));
+                Thread.Sleep(rnd.Next(0, delay));
             }
         }
 
