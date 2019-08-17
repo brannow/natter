@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Natter", "Natter\Natter.csproj", "{279AD15C-9F9A-47EC-AD34-0FB207A41699}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{279AD15C-9F9A-47EC-AD34-0FB207A41699}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{279AD15C-9F9A-47EC-AD34-0FB207A41699}.Debug|x64.Build.0 = Debug|Any CPU
+		{279AD15C-9F9A-47EC-AD34-0FB207A41699}.Release|x64.ActiveCfg = Release|Any CPU
+		{279AD15C-9F9A-47EC-AD34-0FB207A41699}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3DE2907E-C5CF-42E7-8796-1EE489CA0A4E}
+	EndGlobalSection
+EndGlobal
